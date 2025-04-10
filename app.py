@@ -77,12 +77,20 @@ def check_credentials():
             else:
                 st.error("❌ Invalid username or password. Please try again.")
         st.markdown('</div>', unsafe_allow_html=True)
-        st.stop()
+        if not st.session_state.authenticated:
+            st.stop()  # Stop only if not authenticated
     return st.session_state.authenticated
 
-# Load student data
+# Main app logic
 if check_credentials():
+    st.markdown('<div class="title">🎉 2k25 Farewell Party Event</div>', unsafe_allow_html=True)
+    st.markdown('<div class="instruction">Tap to scan your QR code with camera</div>', unsafe_allow_html=True)
+
+    # Placeholder for student details
+    details_box = st.empty()
+
     try:
+        # Load student data
         student_df = pd.read_csv("students.csv")
         student_df["Roll Number"] = student_df["Roll Number"].astype(str)
         column_mapping = {
@@ -93,18 +101,11 @@ if check_credentials():
         if "Scanned" not in student_df.columns:
             student_df["Scanned"] = False
     except FileNotFoundError:
-        st.error("❌ Error: 'students.csv' not found. Please upload the student data file.")
+        st.error("❌ Error: 'students.csv' not found. Please ensure it’s in the repository.")
         st.stop()
     except Exception as e:
         st.error(f"❌ Error loading CSV: {str(e)}. Please check the file format.")
         st.stop()
-
-    # UI Setup
-    st.markdown('<div class="title">🎉 2k25 Farewell Party Event</div>', unsafe_allow_html=True)
-    st.markdown('<div class="instruction">Tap to scan your QR code with camera</div>', unsafe_allow_html=True)
-
-    # Placeholder for student details
-    details_box = st.empty()
 
     # Function to decode QR code
     def decode_qr(image):
