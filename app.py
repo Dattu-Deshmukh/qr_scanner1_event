@@ -108,11 +108,15 @@ if check_credentials():
 
     # Function to decode QR code
     def decode_qr(image):
-        img = np.array(image.convert('RGB'))
-        img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
-        detector = cv2.QRCodeDetector()
-        data, bbox, _ = detector.detectAndDecode(img)
-        return data if data else None
+        try:
+            img = np.array(image.convert('RGB'))
+            img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
+            detector = cv2.QRCodeDetector()
+            data, bbox, _ = detector.detectAndDecode(img)
+            return data if data else None
+        except Exception as e:
+            st.error(f"Error decoding QR: {str(e)}")
+            return None
 
     # Function to extract roll number
     def extract_roll_number(qr_data):
