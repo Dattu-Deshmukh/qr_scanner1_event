@@ -1,21 +1,6 @@
-<<<<<<< HEAD
 streamlit
 pandas
 numpy
 opencv-python-headless
 qrcode[pil]
 python-dotenv
-=======
-<<<<<<< HEAD
-streamlit==1.30.0
-opencv-python-headless==4.9.0.80
-pandas==2.2.0
-numpy==1.26.4
-Pillow==10.2.0
-=======
-streamlit
-pandas
-pyzbar
-Pillow
->>>>>>> 4ca2e70 (Initial commit - QR Scanner App)
->>>>>>> 7a769382b76ab6f7ca47457264dcfa6454d3a422
